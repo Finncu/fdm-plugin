@@ -34,7 +34,7 @@
     <actions>
         <action id="GitVcsToggler.ToggleGitVcsAction" class="de.cyan.fca.ToggleGitVcsAction" text="Toggle Git VCS Mappings" description="Opens a dialog to quickly enable/disable Git VCS directory mappings.">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="control alt G"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
         </action>
     </actions>
 </idea-plugin>
