@@ -1,13 +1,32 @@
 .gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 **/build/
 !**/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
 
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
 # Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
 
@@ -17,5 +36,24 @@ gradle-app.setting
 # Eclipse Gradle plugin generated files
 # Eclipse Core
 .project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
