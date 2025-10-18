@@ -1,32 +1,28 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>de.cyan.fca.fdm-plugin</id>
 
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>Fdm</name>
 
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="jojiro.cyber@gmail.com">Cyan</vendor>
+    <vendor email="finncu.cuypers@gmail.com">finncu</vendor>
 
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        Ein IntelliJ IDEA Plugin, das über einen konfigurierbaren Shortcut ein Popup öffnet, in dem VCS Git Directory Mappings schnell aktiviert/deaktiviert werden können.
+      Toggle Git VCS directory mappings with a single shortcut.
+
+      What it does:
+      - Opens a lightweight dialog to quickly enable/disable Git VCS directory mappings per folder.
+      - Helps keep large monorepos or multi-module projects fast and focused.
+      - Default shortcut: Shift+Alt+G (customizable via Settings > Keymap).
+
+      Deutsch:
+      - Öffnet einen leichten Dialog, um Git-Verzeichnismappings schnell zu aktivieren/deaktivieren.
+      - Besonders hilfreich für große Monorepos oder Multi‑Module‑Projekte.
+      - Standard-Shortcut: Shift+Alt+G (anpassbar über Einstellungen > Keymap).
     ]]></description>
 
-    <change-notes><![CDATA[
-        <em>Initial release.</em>
-    ]]></change-notes>
+    <change-notes>Compatibility to newer Versions</change-notes>
 
-    <!-- Product and plugin compatibility requirements -->
-    <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
 
     </extensions>

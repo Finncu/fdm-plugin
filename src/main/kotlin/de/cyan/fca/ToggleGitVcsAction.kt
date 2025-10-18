@@ -29,7 +29,7 @@ class ToggleGitVcsAction : AnAction( ) {
 
         val vcsManager = ProjectLevelVcsManager.getInstance(project)
 
-        val allMappings = vcsManager.directoryMappings.map { it.directory to GitVcsItem(it.directory, true) }.toMap()
+        val allMappings = vcsManager.directoryMappings.associate { it.directory to GitVcsItem(it.directory, true) }
 
         if (!ALL_ROOTS.containsKey(project))
             ALL_ROOTS[project] = TSaveEntry(VcsRootDetector.getInstance(project).detect())
