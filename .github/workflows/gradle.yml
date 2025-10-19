@@ -38,7 +38,7 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew publishPlugin -PintellijPlatformPublishingToken=${{ secrets.JETBRAINS_M_TOKEN }}
-      with:
+      env:
         pluginGroup: "de.cyan.fca"
         pluginName: "FDM"
         pluginRepositoryUrl: "https://github.com/Finncu/fdm-plugin.git"
