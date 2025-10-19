@@ -37,7 +37,8 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle Wrapper
-      run: ./gradlew publishPlugin
+      run: |
+        ./gradlew publishPlugin
         -PintellijPlatformPublishingToken=${{ secrets.JETBRAINS_M_TOKEN }}
         -PpluginGroup=de.cyan.fca
         -PpluginName=FDM
