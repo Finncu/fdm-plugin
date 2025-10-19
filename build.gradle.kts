@@ -13,7 +13,7 @@ plugins {
 }
 
 group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").orElse(providers.environmentVariable("PLUGIN_VERSION")).get()
+version = providers.gradleProperty("pluginVersion").orElse(providers.environmentVariable("PLUGIN_VERSION"))
 
 // Set the JVM language level used to build the project.
 kotlin {
@@ -58,7 +58,7 @@ intellijPlatform {
         name = providers.gradleProperty("pluginName")
         val pluginGroup = providers.gradleProperty("pluginGroup")
         val pluginRepUrl = providers.gradleProperty("pluginRepositoryUrl")
-        println("flashcast - ${pluginGroup.get()} - ${pluginRepUrl.get()} - ${name.get()}: $version")
+        println("flashcast - ${pluginGroup.get()} - ${pluginRepUrl.get()} - ${name.get()}: ${version.get()}")
 
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
