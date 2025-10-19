@@ -133,6 +133,7 @@ tasks {
     }
 
     publishPlugin {
+        token = publishToken
         dependsOn(patchChangelog)
     }
 }
