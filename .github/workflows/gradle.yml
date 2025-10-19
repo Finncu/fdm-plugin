@@ -9,9 +9,8 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -37,14 +36,13 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle Wrapper
-      env:
-        PUBLISH_TOKEN: ${{ secrets.JETBRAINS_M_TOKEN }}
       run: |
         ./gradlew publishPlugin \
         -PpluginGroup=de.cyan.fca \
         -PpluginName=FDM \
+        -Ptoken=${{ secrets.JETBRAINS_M_TOKEN }} \
         -PpluginRepositoryUrl=https://github.com/Finncu/fdm-Plugin.git \
-        -PpluginVersion=1.1.4 \
+        -PpluginVersion=${{ github.ref_name }} \
         -PpluginSinceBuild=251 \
         -PplatformType=IC \
         -PplatformVersion=2025.1.5 \
