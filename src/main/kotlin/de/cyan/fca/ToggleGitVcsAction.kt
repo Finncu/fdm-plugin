@@ -41,20 +41,25 @@ class ToggleGitVcsAction : AnAction( ) {
             allMappings.getOrDefault(root.path.path, GitVcsItem(root.path.path, false))
         }
 
-        val popup = JBPopupFactory.getInstance().createPopupChooserBuilder(items)
-            .setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+        val builder = JBPopupFactory.getInstance().createPopupChooserBuilder(items)
+        builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
             .setCloseOnEnter(false)
-            .setItemChosenCallback { item -> item.isEnabled = !item.isEnabled }
             .setCancelOnClickOutside(true)
             .setFilterAlwaysVisible(true)
             .setNamerForFiltering { action -> action.path }
             .setCancelCallback { applyChanges(project, items) }
             .setRenderer(SimpleListCellRenderer.create { label, value:GitVcsItem, _ -> label.text = value.path; if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon = AllIcons.General.Add })
-            .createPopup()
+        var popupRef: JBPopup? = null
+        builder.setItemChosenCallback { item ->
+            item.isEnabled = !item.isEnabled
+            popupRef?.content?.repaint()
+        }
+        val popup = builder.createPopup()
+        popupRef = popup
         popup.showInBestPositionFor(e.dataContext)
     }
 
-    private fun applyChanges(project: Project, items: List<GitVcsItem>): Boolean? {
+    private fun applyChanges(project: Project, items: List<GitVcsItem>): Boolean {
         val vcsManager = ProjectLevelVcsManager.getInstance(project)
 
         val newMappings = ArrayList<VcsDirectoryMapping>()
@@ -64,8 +69,7 @@ class ToggleGitVcsAction : AnAction( ) {
                 newMappings.add(VcsDirectoryMapping(item.path, GIT_VCS_NAME))
         }
 
-        vcsManager.setDirectoryMappings(newMappings)
-        vcsManager.updateActiveVcss()
+        vcsManager.directoryMappings = newMappings
         return true
     }
 

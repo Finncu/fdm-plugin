@@ -9,13 +9,13 @@
       Toggle Git VCS directory mappings with a single shortcut.
 
       What it does:
-      - Opens a lightweight dialog to quickly enable/disable Git VCS directory mappings per folder.
-      - Helps keep large monorepos or multi-module projects fast and focused.
+      - Opens a lightweight dialog to quickly enable/disable Git VCS directory mappings per repository.
+      - Helps keep workspaces with multiple repos or large multi-module projects fast and focused.
       - Default shortcut: Shift+Alt+G (customizable via Settings > Keymap).
 
       Deutsch:
-      - Öffnet einen leichten Dialog, um Git-Verzeichnismappings schnell zu aktivieren/deaktivieren.
-      - Besonders hilfreich für große Monorepos oder Multi‑Module‑Projekte.
+      - Öffnet einen einfachen Dialog, um Git-Verzeichnismappings schnell zu aktivieren/deaktivieren.
+      - Besonders hilfreich für Workspaces mit mehreren Repos oder große Multi‑Module‑Projekte.
       - Standard-Shortcut: Shift+Alt+G (anpassbar über Einstellungen > Keymap).
     ]]></description>
 
