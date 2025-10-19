@@ -72,17 +72,16 @@ intellijPlatform {
             }
         }
 
-        val changelog = project.changelog // local variable for configuration cache compatibility
-        // Get the latest available change notes from the changelog file
-        providers.gradleProperty("pluginVersion")
-        changeNotes = with(changelog) {
-                renderItem(
-                    (getOrNull(vversion) ?: getUnreleased())
-                        .withHeader(false)
-                        .withEmptySections(false),
-                    Changelog.OutputType.HTML,
-                )
-            }
+//        val changelog = project.changelog // local variable for configuration cache compatibility
+//        // Get the latest available change notes from the changelog file
+//        changeNotes = with(changelog) {
+//                renderItem(
+//                    (getOrNull(vversion) ?: getUnreleased())
+//                        .withHeader(false)
+//                        .withEmptySections(false),
+//                    Changelog.OutputType.HTML,
+//                )
+//            }
 
 //        ideaVersion {
 //            sinceBuild = providers.gradleProperty("pluginSinceBuild")
