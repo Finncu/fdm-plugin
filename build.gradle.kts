@@ -14,6 +14,7 @@ plugins {
 
 group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
+val publishToken = providers.gradleProperty("token")
 val vversion = version.toString()
 
 // Set the JVM language level used to build the project.
@@ -95,7 +96,7 @@ intellijPlatform {
     }
 
     publishing {
-        token = providers.environmentVariable("PUBLISH_TOKEN").orElse(providers.gradleProperty("token")).get()
+        token = publishToken
         // The pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
