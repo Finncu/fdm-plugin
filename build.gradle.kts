@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.register
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
@@ -56,11 +57,15 @@ intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
+        val pluginGroup = providers.gradleProperty("pluginGroup")
+        val pluginRepUrl = providers.gradleProperty("pluginRepositoryUrl")
+        println("$pluginGroup - $pluginRepUrl - $name: $version")
+
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
-        description = providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
-            val start = "<!-- Plugin description -->"
-            val end = "<!-- Plugin description end -->"
+        description = providers.fileContents(layout.projectDirectory.file("src/main/resources/META-INF/plugin.xml")).asText.map {
+            val start = "<description>"
+            val end = "</description>"
 
             with(it.lines()) {
                 if (!containsAll(listOf(start, end))) {

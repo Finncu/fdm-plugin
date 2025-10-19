@@ -1,9 +1,17 @@
 # fdm-plugin
 Fast Directory Mapping Plugin (For Intellij VCS DiMa's)
 
-<!-- Plugin description -->
 **fdm**
-An IntelliJ IDEA plugin that opens a popup via a configurable shortcut where VCS Git directory mappings can be quickly enabled or disabled.
 
-Ein IntelliJ IDEA Plugin, das über einen konfigurierbaren Shortcut ein Popup öffnet, in dem VCS Git Directory Mappings schnell aktiviert oder deaktiviert werden können.
-<!-- Plugin description end -->
+      Toggle Git VCS directory mappings with a single shortcut.
+
+      What it does:
+      - Opens a lightweight dialog to quickly enable/disable Git VCS directory mappings per repository.
+      - Helps keep workspaces with multiple repos or large multi-module projects fast and focused.
+      - Default shortcut: Shift+Alt+G (customizable via Settings > Keymap).
+
+      Deutsch:
+      - Öffnet einen einfachen Dialog, um Git-Verzeichnismappings schnell zu aktivieren/deaktivieren.
+      - Besonders hilfreich für Workspaces mit mehreren Repos oder große Multi?Module?Projekte.
+      - Standard-Shortcut: Shift+Alt+G (anpassbar über Einstellungen > Keymap).
+    
