@@ -39,14 +39,14 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew publishPlugin
         -PintellijPlatformPublishingToken=${{ secrets.JETBRAINS_M_TOKEN }}
-        -PpluginGroup="de.cyan.fca"
-        -PpluginName="FDM"
-        -PpluginRepositoryUrl="https://github.com/Finncu/fdm-plugin.git"
-        -PpluginVersion="1.1.4"
-        -PpluginSinceBuild="251"
-        -PplatformType="IC"
-        -PplatformVersion="2025.1.5"
-        -PgradleVersion="9.0.0"
+        -PpluginGroup=de.cyan.fca
+        -PpluginName=FDM
+        -PpluginRepositoryUrl=https://github.com/Finncu/fdm-plugin.git
+        -PpluginVersion=1.1.4
+        -PpluginSinceBuild=251
+        -PplatformType=IC
+        -PplatformVersion=2025.1.5
+        -PgradleVersion=9.0.0
         -Pkotlin.stdlib.default.dependency=false
         -Porg.gradle.configuration-cache=true
         -Porg.gradle.caching=true
