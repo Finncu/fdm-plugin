@@ -19,7 +19,7 @@
       - Besonders hilfreich für Workspaces mit mehreren Repos oder große Multi‑Module‑Projekte.
       - Standard-Shortcut: Shift+Alt+G (anpassbar über Einstellungen > Keymap).
     ]]>
-    </description>
+</description>
 
     <change-notes>Compatibility to newer Versions</change-notes>
 

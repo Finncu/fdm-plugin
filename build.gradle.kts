@@ -13,7 +13,7 @@ plugins {
 }
 
 group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").orElse(providers.environmentVariable("PLUGIN_VERSION").get())
+version = providers.gradleProperty("pluginVersion").get()
 
 // Set the JVM language level used to build the project.
 kotlin {
@@ -56,17 +56,14 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
-        val pluginGroup = providers.gradleProperty("pluginGroup")
-        val pluginRepUrl = providers.gradleProperty("pluginRepositoryUrl")
-        println("flashcast - ${pluginGroup.get()} - ${pluginRepUrl.get()} - ${name.get()}: ${version.get()}")
-
-
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         description = providers.fileContents(layout.projectDirectory.file("src/main/resources/META-INF/plugin.xml")).asText.map {
             val start = "<description>"
             val end = "</description>"
 
-            with(it.lines()) {
+            with(it.replace("]]>", "").replace("<![CDATA[", "").lines().map {
+                line -> Regex("^[ ]*").replaceFirst(line, "")
+            }) {
                 if (!containsAll(listOf(start, end))) {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
@@ -87,9 +84,9 @@ intellijPlatform {
             }
         }
 
-        ideaVersion {
-            sinceBuild = providers.gradleProperty("pluginSinceBuild")
-        }
+//        ideaVersion {
+//            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+//        }
     }
 
     signing {
@@ -99,11 +96,11 @@ intellijPlatform {
     }
 
     publishing {
-        token = providers.environmentVariable("PUBLISH_TOKEN")
+        token = providers.environmentVariable("PUBLISH_TOKEN").get()
         // The pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
-        channels = providers.gradleProperty("pluginVersion").map { listOf(it.substringAfter('-', "").substringBefore('.').ifEmpty { "default" }) }
+        channels = providers.gradleProperty("channels").orElse("Stable").map { listOf(it.substringAfter('-', "").substringBefore('.').ifEmpty { "Stable" }) }
     }
 
     pluginVerification {
