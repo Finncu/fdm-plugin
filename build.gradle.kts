@@ -56,7 +56,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
-        version = providers.gradleProperty("pluginVersion")
+        version = providers.gradleProperty("pluginVersion").orElse(providers.environmentVariable("PLUGIN_VERSION").get())
         val pluginGroup = providers.gradleProperty("pluginGroup")
         val pluginRepUrl = providers.gradleProperty("pluginRepositoryUrl")
         println("$pluginGroup - $pluginRepUrl - $name: $version")
