@@ -37,19 +37,19 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle Wrapper
-      run: ./gradlew publishPlugin -PintellijPlatformPublishingToken=${{ secrets.JETBRAINS_M_TOKEN }}
-      env:
-        pluginGroup: "de.cyan.fca"
-        pluginName: "FDM"
-        pluginRepositoryUrl: "https://github.com/Finncu/fdm-plugin.git"
-        pluginVersion: "1.1.4"
-        pluginSinceBuild: "251"
-        platformType: "IC"
-        platformVersion: "2025.1.5"
-        gradleVersion: "9.0.0"
-        kotlin.stdlib.default.dependency: false
-        org.gradle.configuration-cache: true
-        org.gradle.caching: true
+      run: ./gradlew publishPlugin
+        -PintellijPlatformPublishingToken=${{ secrets.JETBRAINS_M_TOKEN }}
+        -PpluginGroup= "de.cyan.fca"
+        -PpluginName= "FDM"
+        -PpluginRepositoryUrl= "https://github.com/Finncu/fdm-plugin.git"
+        -PpluginVersion= "1.1.4"
+        -PpluginSinceBuild= "251"
+        -PplatformType= "IC"
+        -PplatformVersion= "2025.1.5"
+        -PgradleVersion= "9.0.0"
+        -Pkotlin.stdlib.default.dependency= false
+        -Porg.gradle.configuration-cache= true
+        -Porg.gradle.caching= true
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
