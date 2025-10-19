@@ -58,7 +58,7 @@ intellijPlatform {
         name = providers.gradleProperty("pluginName")
         val pluginGroup = providers.gradleProperty("pluginGroup")
         val pluginRepUrl = providers.gradleProperty("pluginRepositoryUrl")
-        println("${pluginGroup.get()} - ${pluginRepUrl.get()} - ${name.get()}: $version")
+        println("flashcast - ${pluginGroup.get()} - ${pluginRepUrl.get()} - ${name.get()}: $version")
 
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
