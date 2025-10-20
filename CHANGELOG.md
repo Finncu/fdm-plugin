@@ -4,11 +4,12 @@
 
 ### Added
 
-- smth
+- Manager
+- loading directory mappings on project startup
 
 ### Fixed
 
-- smth
+- Startup Performance
 
 ### Removed
 
