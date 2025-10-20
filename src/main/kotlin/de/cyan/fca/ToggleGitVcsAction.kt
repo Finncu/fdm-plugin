@@ -11,6 +11,7 @@ import com.intellij.openapi.ui.popup.*
 import com.intellij.openapi.vcs.ProjectLevelVcsManager
 import com.intellij.openapi.vcs.VcsDirectoryMapping
 import com.intellij.openapi.vcs.VcsRoot
+import com.intellij.openapi.vcs.VcsRootSettings
 import com.intellij.openapi.vcs.roots.VcsRootDetector
 import com.intellij.ui.SimpleListCellRenderer
 import org.jetbrains.concurrency.runAsync
@@ -32,13 +33,13 @@ class ToggleGitVcsAction : AnAction( ) {
         val allMappings = vcsManager.directoryMappings.associate { it.directory to GitVcsItem(it.directory, true) }
 
         if (!ALL_ROOTS.containsKey(project))
-            ALL_ROOTS[project] = TSaveEntry(VcsRootDetector.getInstance(project).detect())
+            ALL_ROOTS[project] = TSaveEntry(allMappings.values.map { value -> value.path })
 
         if (ALL_ROOTS[project]!!.idle)
-            runAsync { ALL_ROOTS[project]!!.value { VcsRootDetector.getInstance(project).detect() } }
+            runAsync { ALL_ROOTS[project]!!.value { VcsRootDetector.getInstance(project).detect().map { root -> root.path.path } } }
 
         val items = ALL_ROOTS[project]!!.value.map { root ->
-            allMappings.getOrDefault(root.path.path, GitVcsItem(root.path.path, false))
+            allMappings.getOrDefault(root, GitVcsItem(root, false))
         }
 
         val builder = JBPopupFactory.getInstance().createPopupChooserBuilder(items)
@@ -74,12 +75,12 @@ class ToggleGitVcsAction : AnAction( ) {
     }
 
     data class GitVcsItem(val path: String, var isEnabled: Boolean)
-    data class TSaveEntry(var idle: Boolean, var value: Collection<VcsRoot>) {
-        fun value(value: () -> Collection<VcsRoot>) {
+    data class TSaveEntry(var idle: Boolean, var value: Collection<String>) {
+        fun value(value: () -> Collection<String>) {
             idle = false
             this.value = value.invoke()
             idle = true
         }
-        constructor(value: Collection<VcsRoot>) : this(true, value)
+        constructor(value: Collection<String>) : this(true, value)
     }
 }

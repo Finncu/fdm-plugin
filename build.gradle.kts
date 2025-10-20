@@ -14,7 +14,7 @@ plugins {
 
 group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
-val publishToken = providers.gradleProperty("token").get()
+val publishToken = providers.gradleProperty("token").getOrElse("")
 val vversion = version.toString()
 
 // Set the JVM language level used to build the project.
