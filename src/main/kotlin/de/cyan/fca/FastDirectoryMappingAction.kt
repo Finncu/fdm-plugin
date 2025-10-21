@@ -15,8 +15,7 @@ class FastDirectoryMappingAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-
-        val items = readAllDirectoryMappings(project).toList()
+        val items = VcsDirectoryMappingManager(project).readAllDirectoryMappings().toList()
         val builder = JBPopupFactory.getInstance().createPopupChooserBuilder(items)
 
         builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
@@ -27,7 +26,7 @@ class FastDirectoryMappingAction : AnAction() {
             .setCancelCallback { applyChanges(project, items) }
             .setRenderer(SimpleListCellRenderer.create { label, value: GitVcsItem, _ ->
                 label.text = value.path;
-                if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon = AllIcons.General.Add
+                if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon = AllIcons.General.Close
             })
         var popupRef: JBPopup? = null
         builder.setItemChosenCallback { item ->
@@ -46,7 +45,7 @@ class FastDirectoryMappingAction : AnAction() {
         // Process existing mappings and toggled items
         for (item in items) {
             if (item.isEnabled)
-                newMappings.add(VcsDirectoryMapping(item.path, GIT_VCS_NAME))
+                newMappings.add(VcsDirectoryMapping(item.path, VcsDirectoryMappingManager.GIT_VCS_NAME))
         }
 
         vcsManager.directoryMappings = newMappings

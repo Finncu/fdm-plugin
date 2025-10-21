@@ -26,7 +26,7 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-      <postStartupActivity implementation="de.cyan.fca.VcsDirectoryMappingManager"/>
+      <postStartupActivity implementation="de.cyan.fca.VcsDirectoryMappingInit"/>
     </extensions>
 
     <idea-version since-build="251.*" until-build="251.*" />

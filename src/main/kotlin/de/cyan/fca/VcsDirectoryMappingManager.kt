@@ -1,58 +1,62 @@
 package de.cyan.fca
 
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.NotificationsManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.vcs.ProjectLevelVcsManager
+import com.intellij.openapi.vcs.VcsDirectoryMapping
 import com.intellij.openapi.vcs.roots.VcsRootDetector
 import org.jetbrains.annotations.SystemIndependent
 import org.jetbrains.concurrency.runAsync
 
-val ALL_ROOTS = HashMap<Project, TSaveEntry>()
-const val GIT_VCS_NAME = "Git"
+class VcsDirectoryMappingManager() {
 
-fun readAllDirectoryMappings(project: Project): Collection<GitVcsItem> {
-    val allMappings = getActiveDirectoryMappings(project)
+    private lateinit var allMappings : Map<String, GitVcsItem>
+    private lateinit var project: Project
 
-    if (!ALL_ROOTS.containsKey(project))
-        ALL_ROOTS[project] = TSaveEntry(allMappings.values)
-
-    if (ALL_ROOTS[project]!!.idle)
-        detectAllRootsAsync(project, allMappings)
-
-    return ALL_ROOTS[project]!!.value
-}
-
-fun getActiveDirectoryMappings(project: Project): Map<@SystemIndependent String, GitVcsItem> {
-    return ProjectLevelVcsManager.getInstance(project).directoryMappings.associate {
-        it.directory to GitVcsItem(
-            it.directory,
-            true
-        )
-    }
-}
-
-fun detectAllRootsAsync(project: Project, allMappings: Map<String, GitVcsItem>) {
-    runAsync {
-        ALL_ROOTS[project] =
-            TSaveEntry(
-                VcsRootDetector.getInstance(project).detect()
-                    .map { root -> allMappings.getOrDefault(root.path.path, GitVcsItem(root.path.path, false)) })
-    }
-}
-
-class VcsDirectoryMappingManager : ProjectActivity {
-    override suspend fun execute(project: Project) {
-        detectAllRootsAsync(project, getActiveDirectoryMappings(project))
-    }
-}
-
-data class GitVcsItem(val path: String, var isEnabled: Boolean)
-data class TSaveEntry(var idle: Boolean, var value: Collection<GitVcsItem>) {
-    fun value(value: () -> Collection<GitVcsItem>) {
-        idle = false
-        this.value = value.invoke()
-        idle = true
+    companion object {
+        const val GIT_VCS_NAME = "Git"
+        private val ALL_ROOTS = HashMap<Project, TSaveEntry>()
     }
 
-    constructor(value: Collection<GitVcsItem>) : this(true, value)
+    constructor(project: Project) : this() {
+        this.project = project
+        allMappings = getActiveDirectoryMappings();
+    }
+
+    fun readAllDirectoryMappings(): Collection<GitVcsItem> {
+        if (!ALL_ROOTS.containsKey(project))
+            ALL_ROOTS[project] = TSaveEntry(allMappings.values)
+
+        if (ALL_ROOTS[project]!!.idle)
+            detectAllRootsAsync()
+
+        return ALL_ROOTS[project]!!.value
+    }
+
+    private fun getActiveDirectoryMappings(): Map<@SystemIndependent String, GitVcsItem> {
+        return ProjectLevelVcsManager.getInstance(project).directoryMappings.associate {
+            it.directory to GitVcsItem(
+                it.directory,
+                true
+            )
+        }
+    }
+
+    fun detectAllRootsAsync() {
+        runAsync {
+//            NotificationsManager.getNotificationsManager().showNotification(Notification("detect", "Detecting ...", NotificationType.INFORMATION), project)
+            ALL_ROOTS.getOrPut(project) { TSaveEntry(allMappings.values) }.value {
+                    VcsRootDetector.getInstance(project).detect()
+                        .map { root ->
+                            allMappings.getOrDefault(
+                                root.path.path,
+                                GitVcsItem(root.path.path, false)
+                            )
+                        }}
+//            NotificationsManager.getNotificationsManager().showNotification(Notification("detect", "Detected!", NotificationType.INFORMATION), project)
+        }
+    }
 }
