@@ -13,7 +13,7 @@ plugins {
 }
 
 group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").get()
+version = providers.gradleProperty("pluginVersion").getOrElse("")
 val publishToken = providers.gradleProperty("token").getOrElse("")
 val vversion = version.toString()
 
