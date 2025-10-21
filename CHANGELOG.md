@@ -4,15 +4,16 @@
 
 ### Added
 
-- Manager, Init
-- loading directory mappings on project startup
-- Splitted Classes
-- More Reading performance
+- #2 Manager, Init
+- #1 loading directory mappings on project startup
+- #2 Splitted Classes
+- #2 More Reading performance
 
 ### Fixed
 
-- Startup Performance
-- Changed inactive icon to X
+- #1 Startup Performance
+- #3 Changed inactive icon to X
+- #0 Compatibility since 242
 
 ### Removed
 
