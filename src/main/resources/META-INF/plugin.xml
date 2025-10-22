@@ -29,8 +29,6 @@
       <postStartupActivity implementation="de.cyan.fca.VcsDirectoryMappingInit"/>
     </extensions>
 
-    <idea-version since-build="251.*" until-build="251.*" />
-
     <actions>
         <action id="GitVcsToggler.ToggleGitVcsAction" class="de.cyan.fca.FastDirectoryMappingAction" text="Toggle Git VCS Mappings" description="Opens a dialog to quickly enable/disable Git VCS directory mappings.">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
