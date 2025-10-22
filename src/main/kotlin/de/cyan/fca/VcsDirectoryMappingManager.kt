@@ -3,11 +3,14 @@ package de.cyan.fca
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.NotificationsManager
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.vcs.ProjectLevelVcsManager
-import com.intellij.openapi.vcs.VcsDirectoryMapping
 import com.intellij.openapi.vcs.roots.VcsRootDetector
+import com.intellij.workspaceModel.ide.getInstance
+import com.jetbrains.rd.util.LogLevel
+import com.jetbrains.rd.util.Logger
+import com.jetbrains.rd.util.log
 import org.jetbrains.annotations.SystemIndependent
 import org.jetbrains.concurrency.runAsync
 
@@ -17,7 +20,7 @@ class VcsDirectoryMappingManager() {
     private lateinit var project: Project
 
     companion object {
-        const val GIT_VCS_NAME = "Git"
+        const val GIT = "Git"
         private val ALL_ROOTS = HashMap<Project, TSaveEntry>()
     }
 
@@ -27,10 +30,10 @@ class VcsDirectoryMappingManager() {
     }
 
     fun readAllDirectoryMappings(): Collection<GitVcsItem> {
-        if (!ALL_ROOTS.containsKey(project))
-            ALL_ROOTS[project] = TSaveEntry(allMappings.values)
+//        if (!ALL_ROOTS.containsKey(project))
+//            ALL_ROOTS[project] = TSaveEntry(allMappings.values)
 
-        if (ALL_ROOTS[project]!!.idle)
+//        if (ALL_ROOTS[project]!!.idle)
             detectAllRootsAsync()
 
         return ALL_ROOTS[project]!!.value
@@ -41,6 +44,7 @@ class VcsDirectoryMappingManager() {
             it.directory to GitVcsItem(
                 it.directory,
                 true
+//                "Git" == it.vcs
             )
         }
     }

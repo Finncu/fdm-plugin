@@ -15,13 +15,13 @@ import kotlin.collections.HashMap
 class FastDirectoryMappingAction : AnAction() {
 
     companion object {
-        private val POPS = HashMap<Project, JBPopup>()
+        private val POPUP_HOLDER = HashMap<Project, JBPopup>()
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        if (POPS.containsKey(project)) {
-            POPS.remove(project)!!.dispose()
+        if (POPUP_HOLDER.containsKey(project)) {
+            POPUP_HOLDER.remove(project)!!.dispose()
             return
         }
         val items = VcsDirectoryMappingManager(project).readAllDirectoryMappings().toList()
@@ -35,30 +35,21 @@ class FastDirectoryMappingAction : AnAction() {
             .setCancelCallback { applyChanges(project, items) }
             .setRenderer(SimpleListCellRenderer.create { label, value: GitVcsItem, _ ->
                 label.text = value.path;
-                if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon =
-                    AllIcons.General.Close
+                if (value.enabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon =
+                    AllIcons.Actions.Close
             })
         builder.setItemChosenCallback { item ->
-            item.isEnabled = !item.isEnabled
-            POPS[project]?.content?.repaint()
+            item.enabled = !item.enabled
+            POPUP_HOLDER[project]?.content?.repaint()
         }
-        POPS.getOrPut(project) {
-            builder.createPopup()
-        }.showInBestPositionFor(e.dataContext)
+        POPUP_HOLDER[project] = builder.createPopup()
+        POPUP_HOLDER[project]!!.showInBestPositionFor(e.dataContext)
     }
 
     private fun applyChanges(project: Project, items: List<GitVcsItem>): Boolean {
         val vcsManager = ProjectLevelVcsManager.getInstance(project)
-
-        val newMappings = ArrayList<VcsDirectoryMapping>()
-        // Process existing mappings and toggled items
-        for (item in items) {
-            if (item.isEnabled)
-                newMappings.add(VcsDirectoryMapping(item.path, VcsDirectoryMappingManager.GIT_VCS_NAME))
-        }
-
-        vcsManager.directoryMappings = newMappings
-        POPS.remove(project)
+        vcsManager.directoryMappings = items.map { VcsDirectoryMapping(it.path, if (it.enabled) VcsDirectoryMappingManager.GIT else "") }
+        POPUP_HOLDER.remove(project)
         return true
     }
 }
