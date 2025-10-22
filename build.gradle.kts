@@ -115,7 +115,6 @@ intellijPlatform {
 changelog {
     groups.empty()
     repositoryUrl = providers.gradleProperty("pluginRepositoryUrl").getOrElse("").replace(".git", "")
-    itemPrefix = ""
     versionPrefix = ""
 }
 
