@@ -36,7 +36,7 @@ class FastDirectoryMappingAction : AnAction() {
             .setRenderer(SimpleListCellRenderer.create { label, value: GitVcsItem, _ ->
                 label.text = value.path;
                 if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon =
-                    AllIcons.General.Close
+                    AllIcons.Actions.Close
             })
         builder.setItemChosenCallback { item ->
             item.isEnabled = !item.isEnabled

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- #0 Compatibility Range to 232.* / 2023.*
+
 ## [1.1.7-2] - 2025-10-22
 
 ### Fixed
@@ -20,10 +24,6 @@
 - [#2] More Reading performance
 - [#5] Automated CHANGELOG releasing
 
-### Removed
-
-- smth
-
 ## [1.1.7] - 2025-10-22
 
 ### Added
@@ -40,10 +40,6 @@
 - [#3] Changed inactive icon to X
 - #0 Compatibility since 242
 - [#4] prevent multiple popup with popup holder companion
-
-### Removed
-
-- smth
 
 ## [1.1.6]
 
