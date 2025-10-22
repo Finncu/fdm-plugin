@@ -10,11 +10,20 @@ import com.intellij.openapi.vcs.VcsDirectoryMapping
 import com.intellij.ui.SimpleListCellRenderer
 import java.util.*
 import javax.swing.ListSelectionModel
+import kotlin.collections.HashMap
 
 class FastDirectoryMappingAction : AnAction() {
 
+    companion object {
+        private val POPS = HashMap<Project, JBPopup>()
+    }
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
+        if (POPS.containsKey(project)) {
+            POPS.remove(project)!!.dispose()
+            return
+        }
         val items = VcsDirectoryMappingManager(project).readAllDirectoryMappings().toList()
         val builder = JBPopupFactory.getInstance().createPopupChooserBuilder(items)
 
@@ -26,16 +35,16 @@ class FastDirectoryMappingAction : AnAction() {
             .setCancelCallback { applyChanges(project, items) }
             .setRenderer(SimpleListCellRenderer.create { label, value: GitVcsItem, _ ->
                 label.text = value.path;
-                if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon = AllIcons.General.Close
+                if (value.isEnabled) label.icon = AllIcons.RunConfigurations.TestPassed else label.icon =
+                    AllIcons.General.Close
             })
-        var popupRef: JBPopup? = null
         builder.setItemChosenCallback { item ->
             item.isEnabled = !item.isEnabled
-            popupRef?.content?.repaint()
+            POPS[project]?.content?.repaint()
         }
-        val popup = builder.createPopup()
-        popupRef = popup
-        popup.showInBestPositionFor(e.dataContext)
+        POPS.getOrPut(project) {
+            builder.createPopup()
+        }.showInBestPositionFor(e.dataContext)
     }
 
     private fun applyChanges(project: Project, items: List<GitVcsItem>): Boolean {
@@ -49,6 +58,7 @@ class FastDirectoryMappingAction : AnAction() {
         }
 
         vcsManager.directoryMappings = newMappings
+        POPS.remove(project)
         return true
     }
 }
