@@ -36,11 +36,11 @@ jobs:
     - name: Build with Gradle Wrapper
       run: |
         ./gradlew publishPlugin \
+        -Ptoken=${{ secrets.JETBRAINS_M_TOKEN }} \
+        -PpluginVersion=${{ github.ref_name }}
+#        -PpluginRepositoryUrl=https://github.com/Finncu/fdm-Plugin.git \
 #        -PpluginGroup=de.cyan.fca \
 #        -PpluginName=FDM \
-        -Ptoken=${{ secrets.JETBRAINS_M_TOKEN }} \
-#        -PpluginRepositoryUrl=https://github.com/Finncu/fdm-Plugin.git \
-        -PpluginVersion=${{ github.ref_name }} \
 #        -PpluginSinceBuild=242 \
 #        -PplatformType=IC \
 #        -PplatformVersion=2025.1.5 \
