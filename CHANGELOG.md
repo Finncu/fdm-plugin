@@ -52,11 +52,11 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...HEAD
-[1.1.7]: https://github.com/Finncu/fdm-plugin/compare/1.1.6...1.1.7
-[1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
-[1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
-[1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
+[Unreleased]: https://github.com/Finncu/fdm-Plugin/compare/1.1.7...HEAD
+[1.1.7]: https://github.com/Finncu/fdm-Plugin/compare/1.1.6...1.1.7
+[1.1.6]: https://github.com/Finncu/fdm-Plugin/compare/1.1.5...1.1.6
+[1.1.5]: https://github.com/Finncu/fdm-Plugin/compare/1.1.4...1.1.5
+[1.1.4]: https://github.com/Finncu/fdm-Plugin/commits/1.1.4
 [#5]: https://github.com/Finncu/fdm-plugin/issues/5
 [#4]: https://github.com/Finncu/fdm-plugin/issues/4
 [#3]: https://github.com/Finncu/fdm-plugin/issues/3
