@@ -21,8 +21,6 @@
     ]]>
 </description>
 
-    <change-notes>Compatibility to newer Versions</change-notes>
-
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
