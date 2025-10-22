@@ -35,6 +35,12 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
+    - name: Build Changelog
+      run: ./gradlew patchChangelog
+
+    - name: Commit Changelog
+      run: git commit CHANGELOG.md -m "updated Changelog" && git push
+
     - name: Build with Gradle Wrapper
       run: |
         ./gradlew publishPlugin \
