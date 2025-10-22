@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- #0 Compatibility since 242 via github deployment
+
 ## [1.1.7] - 2025-10-22
 
 ### Added
