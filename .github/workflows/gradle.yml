@@ -39,7 +39,7 @@ jobs:
       run: ./gradlew patchChangelog
 
     - name: Commit Changelog
-      run: git commit CHANGELOG.md -m "updated Changelog by pipeline" && git push
+      run: git add CHANGELOG.md && git commit CHANGELOG.md -m "updated Changelog by pipeline" && git push
       env:
         GIT_AUTHOR_NAME: github-actions
         GIT_AUTHOR_EMAIL: github-actions@cuypers.dev
