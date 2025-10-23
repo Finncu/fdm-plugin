@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- [#9] - fixed two datastate bug
+
 ## [1.1.8] - 2025-10-23
 
 ### Fixed
@@ -95,6 +98,7 @@
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
 [//]: #
+[#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
 [#7]: https://github.com/Finncu/fdm-plugin/issues/7
 [#6]: https://github.com/Finncu/fdm-plugin/issues/6

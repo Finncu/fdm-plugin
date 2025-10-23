@@ -23,10 +23,6 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-      <postStartupActivity implementation="de.cyan.fca.FastDirectoryMappingHandler"/>
-    </extensions>
-
     <actions>
         <action id="GitVcsToggler.ToggleGitVcsAction" class="de.cyan.fca.FastDirectoryMappingHandler" text="Toggle Git VCS Mappings" description="Opens a dialog to quickly enable/disable Git VCS directory mappings.">
             <add-to-group group-id="ToolsMenu" anchor="first"/>

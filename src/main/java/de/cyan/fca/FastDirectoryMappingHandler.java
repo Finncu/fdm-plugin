@@ -1,7 +1,5 @@
 package de.cyan.fca;
 
-import kotlin.Unit;
-import kotlin.coroutines.Continuation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +7,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.swing.ListSelectionModel;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.startup.ProjectActivity;
 import com.intellij.openapi.ui.popup.IPopupChooserBuilder;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -23,7 +19,7 @@ import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
 
-public class FastDirectoryMappingHandler extends AnAction implements ProjectActivity {
+public class FastDirectoryMappingHandler extends AnAction {
 
    private static final SimpleListCellRenderer.Customizer<? super DirectoryMappingItem> RENDERER = (label, item, i) -> {
       label.setText(item.path());
@@ -74,18 +70,6 @@ public class FastDirectoryMappingHandler extends AnAction implements ProjectActi
       JBPopup popup = builder.createPopup();
       POPUPS.put(project, popup);
       popup.showInBestPositionFor(anActionEvent.getDataContext());
-   }
-
-   @Override
-   public @Nullable Object execute(@NotNull Project project, @NotNull Continuation<? super Unit> continuation) {
-      ProjectLevelVcsManager manager = ProjectLevelVcsManager.getInstance(project);
-      Map<String, DirectoryMappingItem> activeMappings = manager.getDirectoryMappings()
-            .stream()
-            .map(this::toDMI)
-            .collect(Collectors.toMap(DirectoryMappingItem::path, item -> item));
-      HOLDER.putIfAbsent(project, new ThreadSaveDMHolder(activeMappings));
-      detectAllRootsAsync(project, activeMappings);
-      return null;
    }
 
    private void detectAllRootsAsync(@NotNull Project project, Map<String, DirectoryMappingItem> activeMappings) {
