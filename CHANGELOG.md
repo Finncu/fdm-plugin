@@ -4,8 +4,6 @@
 
 ## [Unreleased]
 
-## [1.1.8] - 2025-10-23
-
 ### Fixed
 
 - [#7] - fixed broken pipe git
@@ -87,8 +85,7 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...HEAD
-[1.1.8]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...1.1.8
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...HEAD
 [1.1.7]: https://github.com/Finncu/fdm-plugin/compare/1.1.7-2...1.1.7
 [1.1.7-2]: https://github.com/Finncu/fdm-plugin/compare/1.1.6...1.1.7-2
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
