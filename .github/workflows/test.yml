@@ -37,7 +37,7 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: |
-        ./gradlew patch changelog \
+        ./gradlew patchChangelog \
         -Ptoken=${{ secrets.JETBRAINS_M_TOKEN }} \
         -PpluginVersion=1.1.8
 #        -PpluginRepositoryUrl=https://github.com/Finncu/fdm-Plugin.git \
