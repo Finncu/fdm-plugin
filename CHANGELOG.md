@@ -6,12 +6,20 @@
 
 ### Fixed
 
-- [#7] fixed broken pipe git
+- [#7] - fixed broken pipe git
+- [#8] - Better Caching using by intellij cached DM's
 
 ### Changed
 
-- #0 compatibility since IC 231
-  - #0Compatibility enhancement by downgrading used java version to 17
+- #0 - compatibility since IC 231
+  - #0 - Compatibility enhancement by downgrading used java version to 17
+- [#2] Reimplemented in java
+  - one handler class
+  - ThreadSaveDMHolder record
+
+### Deprecated
+
+- Kotlin files
 
 ## [1.1.7] - 2025-10-22
 
@@ -84,6 +92,9 @@
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
 [//]: #
+[#8]: https://github.com/Finncu/fdm-plugin/issues/8
+[#7]: https://github.com/Finncu/fdm-plugin/issues/7
+[#6]: https://github.com/Finncu/fdm-plugin/issues/6
 [#5]: https://github.com/Finncu/fdm-plugin/issues/5
 [#4]: https://github.com/Finncu/fdm-plugin/issues/4
 [#3]: https://github.com/Finncu/fdm-plugin/issues/3

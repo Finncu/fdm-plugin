@@ -7,7 +7,6 @@ import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vcs.ProjectLevelVcsManager
 import com.intellij.openapi.vcs.roots.VcsRootDetector
-import com.intellij.workspaceModel.ide.getInstance
 import com.jetbrains.rd.util.LogLevel
 import com.jetbrains.rd.util.Logger
 import com.jetbrains.rd.util.log
