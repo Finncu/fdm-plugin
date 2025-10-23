@@ -4,7 +4,10 @@
 
 ## [Unreleased]
 
+## [1.1.9] - 2025-10-23
+
 ### Fixed
+
 - [#9] - fixed two datastate bug
 
 ## [1.1.8] - 2025-10-23
@@ -90,7 +93,8 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...HEAD
+[1.1.9]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...1.1.9
 [1.1.8]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...1.1.8
 [1.1.7]: https://github.com/Finncu/fdm-plugin/compare/1.1.7-2...1.1.7
 [1.1.7-2]: https://github.com/Finncu/fdm-plugin/compare/1.1.6...1.1.7-2
