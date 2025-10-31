@@ -1,5 +1,7 @@
 package de.cyan.fca;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +26,9 @@ public class FastDirectoryMappingHandler extends AnAction {
    private static final SimpleListCellRenderer.Customizer<? super DirectoryMappingItem> RENDERER = (label, item, i) -> {
       label.setText(item.path());
       label.setIcon(item.isEnabled() ? AllIcons.RunConfigurations.TestPassed : AllIcons.Actions.Close);
+      i = item.isEnabled() ? 0 : 1;
    };
    private final String GIT = "Git";
-   private static final Map<Project, ThreadSaveDMHolder> HOLDER = new HashMap<>();
    private static final Map<Project, JBPopup> POPUPS = new HashMap<>();
 
    @Override
@@ -41,14 +43,17 @@ public class FastDirectoryMappingHandler extends AnAction {
             .stream()
             .map(this::toDMI)
             .collect(Collectors.toMap(DirectoryMappingItem::path, item -> item));
-      if (!HOLDER.containsKey(project))
-         HOLDER.put(project, new ThreadSaveDMHolder(activeMappings));
-      ThreadSaveDMHolder holder = HOLDER.get(project);
-      if (holder.isIdle())
-         detectAllRootsAsync(project, activeMappings);
-      List<DirectoryMappingItem> items = holder.mappings().values().stream().toList();
+      List<DirectoryMappingItem> items = VcsRootDetector.getInstance(project)
+            .getOrDetect()
+            .stream()
+            .map(
+               root -> activeMappings.getOrDefault(
+                  root.getPath().getPath(),
+                  new DirectoryMappingItem(root.getPath().getPath(), GIT, false)))
+            .collect(Collectors.toCollection(ArrayList::new));
       IPopupChooserBuilder<DirectoryMappingItem> builder =
             JBPopupFactory.getInstance().createPopupChooserBuilder(items);
+      items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled));
       builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
             .setCloseOnEnter(false)
             .setCancelOnClickOutside(true)
@@ -57,50 +62,21 @@ public class FastDirectoryMappingHandler extends AnAction {
             .setCancelCallback(() -> {
                manager.setDirectoryMappings(
                   items.stream()
+                        //.filter(DirectoryMappingItem::isEnabled)
                         .map(item -> new VcsDirectoryMapping(item.path(), item.isEnabled() ? GIT : ""))
                         .toList());
                POPUPS.remove(project);
                return true;
             })
             .setRenderer(SimpleListCellRenderer.create(RENDERER));
-      builder.setItemChosenCallback(item -> {
-         item.toggle();
+      builder.setItemsChosenCallback(is -> {
+         is.forEach(DirectoryMappingItem::toggle);
+         items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled));
          POPUPS.get(project).getContent().repaint();
       });
       JBPopup popup = builder.createPopup();
       POPUPS.put(project, popup);
       popup.showInBestPositionFor(anActionEvent.getDataContext());
-   }
-
-   private void detectAllRootsAsync(@NotNull Project project, Map<String, DirectoryMappingItem> activeMappings) {
-      new Thread(() -> {
-         HOLDER.get(project)
-               .insertMappings(
-                  voi -> VcsRootDetector.getInstance(project)
-                        .getOrDetect()
-                        .stream()
-                        .map(
-                           root -> activeMappings.getOrDefault(
-                              root.getPath().getPath(),
-                              new DirectoryMappingItem(root.getPath().getPath(),
-                                    root.getVcs() != null ? root.getVcs().getName() : "", false)))
-                        .toList());
-      }).start();
-   }
-
-   private void detectAllRoots(Project project, Map<String, DirectoryMappingItem> activeMappings) {
-      HOLDER.get(project)
-            .insertMappings(
-               voi -> VcsRootDetector.getInstance(project)
-                     .getOrDetect()
-                     .stream()
-                     .map(
-                        root -> activeMappings.getOrDefault(
-                           root.getPath().getPath(),
-                           new DirectoryMappingItem(root.getPath().getPath(),
-                                 root.getVcs() != null ? root.getVcs().getName() : "", false)))
-                     .toList());
-
    }
 
    private DirectoryMappingItem toDMI(VcsDirectoryMapping vcsDirectoryMapping) {

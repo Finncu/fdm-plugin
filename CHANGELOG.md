@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Multiselect toggle
+
+### Fixed
+
+- another 2 DS bug
+
 ## [1.1.9] - 2025-10-23
 
 ### Fixed
