@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.1.10.x] - 2026-02-11
+
 ### Added
 
 - Multiselect toggle
@@ -101,7 +103,7 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.10.x...HEAD
 [1.1.9]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...1.1.9
 [1.1.8]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...1.1.8
 [1.1.7]: https://github.com/Finncu/fdm-plugin/compare/1.1.7-2...1.1.7
@@ -109,6 +111,7 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
+[1.1.10.x]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10.x
 [//]: #
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
