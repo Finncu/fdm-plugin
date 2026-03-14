@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- [#6] - by active status sorted mappings
+
+### Fixed
+
+- [#11] - accepting every other vcs
+
 ## [1.1.10.x] - 2026-02-11
 
 ### Added
@@ -113,6 +121,8 @@
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
 [1.1.10.x]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10.x
 [//]: #
+[#11]: https://github.com/Finncu/fdm-plugin/issues/11
+[#10]: https://github.com/Finncu/fdm-plugin/issues/10
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
 [#7]: https://github.com/Finncu/fdm-plugin/issues/7
