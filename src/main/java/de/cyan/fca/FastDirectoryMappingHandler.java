@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.swing.ListSelectionModel;
 import org.jetbrains.annotations.NotNull;
-import com.google.common.collect.Streams;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -21,8 +20,6 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
-import com.intellij.ui.SortedListModel;
-import com.intellij.ui.components.JBList;
 
 public class FastDirectoryMappingHandler extends AnAction {
 
@@ -31,7 +28,6 @@ public class FastDirectoryMappingHandler extends AnAction {
       label.setIcon(item.isEnabled() ? AllIcons.RunConfigurations.TestPassed : AllIcons.Actions.Close);
       i = item.isEnabled() ? 0 : 1;
    };
-   private final String GIT = "Git";
    private static final Map<Project, JBPopup> POPUPS = new HashMap<>();
 
    @Override
@@ -53,18 +49,10 @@ public class FastDirectoryMappingHandler extends AnAction {
             .map(
                root -> activeMappings.getOrDefault(
                   root.getPath().getPath(),
-                  new DirectoryMappingItem(root.getPath().getPath(), GIT, false)))
+                  new DirectoryMappingItem(root.getPath().getPath(), root.getVcs() != null ? root.getVcs().getName() : "", false)))
             .collect(Collectors.toCollection(ArrayList::new));
       items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled).reversed());
 
-      // Sortiertes Decorator-Modell
-      SortedListModel<DirectoryMappingItem> sortedModel =
-       new SortedListModel<>(items, Comparator.comparing(DirectoryMappingItem::isEnabled).reversed());
-
-      // JList mit sortiertem Modell und SimpleListCellRenderer
-      JBList<DirectoryMappingItem> list = new JBList<>(sortedModel);
-//      IPopupChooserBuilder<DirectoryMappingItem> builder =
-//            JBPopupFactory.getInstance().createListPopupBuilder(list);
       IPopupChooserBuilder<DirectoryMappingItem> builder =
             JBPopupFactory.getInstance().createPopupChooserBuilder(items);
       builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
@@ -74,9 +62,9 @@ public class FastDirectoryMappingHandler extends AnAction {
             .setNamerForFiltering(DirectoryMappingItem::path)
             .setCancelCallback(() -> {
                manager.setDirectoryMappings(
-                       Streams.concat(items.stream()
-                                       //.filter(DirectoryMappingItem::isEnabled)
-                                       .map(item -> new VcsDirectoryMapping(item.path(), item.isEnabled() ? GIT : "")), amappings.stream().filter(dm -> !GIT.equals(dm.getVcs())))
+                       items.stream()
+                                       .filter(DirectoryMappingItem::isEnabled)
+                                       .map(item -> new VcsDirectoryMapping(item.path(), item.vsc()))
                         .toList());
                POPUPS.remove(project);
                return true;
