@@ -12,7 +12,7 @@
 
 - [#11] - accepting every other vcs
 
-## [1.1.10.x] - 2026-02-11
+## [1.1.10] - 2026-02-11
 
 ### Added
 
@@ -119,7 +119,7 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
-[1.1.10.x]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10.x
+[1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10.x
 [//]: #
 [#11]: https://github.com/Finncu/fdm-plugin/issues/11
 [#10]: https://github.com/Finncu/fdm-plugin/issues/10
