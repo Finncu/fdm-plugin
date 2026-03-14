@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-03-14
+
 ### Added
 
 - [#6] - by active status sorted mappings
@@ -111,7 +113,9 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.1.10.x...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/Finncu/fdm-plugin/compare/1.1.10...1.2.0
+[1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10
 [1.1.9]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...1.1.9
 [1.1.8]: https://github.com/Finncu/fdm-plugin/compare/1.1.7...1.1.8
 [1.1.7]: https://github.com/Finncu/fdm-plugin/compare/1.1.7-2...1.1.7
@@ -119,10 +123,7 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
-[1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10.x
 [//]: #
-[#11]: https://github.com/Finncu/fdm-plugin/issues/11
-[#10]: https://github.com/Finncu/fdm-plugin/issues/10
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
 [#7]: https://github.com/Finncu/fdm-plugin/issues/7
@@ -131,4 +132,6 @@
 [#4]: https://github.com/Finncu/fdm-plugin/issues/4
 [#3]: https://github.com/Finncu/fdm-plugin/issues/3
 [#2]: https://github.com/Finncu/fdm-plugin/issues/2
+[#11]: https://github.com/Finncu/fdm-plugin/issues/11
+[#10]: https://github.com/Finncu/fdm-plugin/issues/10
 [#1]: https://github.com/Finncu/fdm-plugin/issues/1
