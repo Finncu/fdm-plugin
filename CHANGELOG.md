@@ -136,6 +136,7 @@
 [#4]: https://github.com/Finncu/fdm-plugin/issues/4
 [#3]: https://github.com/Finncu/fdm-plugin/issues/3
 [#2]: https://github.com/Finncu/fdm-plugin/issues/2
+[#12]: https://github.com/Finncu/fdm-plugin/issues/12
 [#11]: https://github.com/Finncu/fdm-plugin/issues/11
 [#10]: https://github.com/Finncu/fdm-plugin/issues/10
 [#1]: https://github.com/Finncu/fdm-plugin/issues/1
