@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Removed
+
+- [#12] - SVN, intellij doesn't detect svn dir's automaticly
+
 ## [1.2.0] - 2026-03-14
 
 ### Added
