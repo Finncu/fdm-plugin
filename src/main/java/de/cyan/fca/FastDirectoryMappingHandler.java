@@ -66,9 +66,10 @@ public class FastDirectoryMappingHandler extends AnAction {
             .setNamerForFiltering(DirectoryMappingItem::path)
             .setCancelCallback(() -> {
                manager.setDirectoryMappings(
-                       items.stream()
+                  Stream.concat(items.stream()
                                        .filter(DirectoryMappingItem::isEnabled)
-                                       .map(item -> new VcsDirectoryMapping(item.path(), item.vsc()))
+                                       .map(item -> new VcsDirectoryMapping(item.path(), item.vsc())),
+                                amappings.stream().filter(am -> SVN.equals(am.getVcs())))
                         .toList());
                POPUPS.remove(project);
                return true;
