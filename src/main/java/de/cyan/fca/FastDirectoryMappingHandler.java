@@ -28,6 +28,7 @@ public class FastDirectoryMappingHandler extends AnAction {
       label.setIcon(item.isEnabled() ? AllIcons.RunConfigurations.TestPassed : AllIcons.Actions.Close);
       i = item.isEnabled() ? 0 : 1;
    };
+   private static final String SVN = "svn";
    private static final Map<Project, JBPopup> POPUPS = new HashMap<>();
 
    @Override
@@ -50,7 +51,10 @@ public class FastDirectoryMappingHandler extends AnAction {
                root -> activeMappings.getOrDefault(
                   root.getPath().getPath(),
                   new DirectoryMappingItem(root.getPath().getPath(), root.getVcs() != null ? root.getVcs().getName() : "", false)))
+              .peek(am -> activeMappings.remove(am.path()))
             .collect(Collectors.toCollection(ArrayList::new));
+      if (!activeMappings.isEmpty())
+          items.addAll(activeMappings.values());
       items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled).reversed());
 
       IPopupChooserBuilder<DirectoryMappingItem> builder =
