@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.ListSelectionModel;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
