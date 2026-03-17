@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-03-17
+
 ### Removed
 
 - [#12] - SVN, intellij doesn't detect svn dir's automaticly
@@ -117,7 +119,8 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/Finncu/fdm-plugin/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/Finncu/fdm-plugin/compare/1.1.10...1.2.0
 [1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10
 [1.1.9]: https://github.com/Finncu/fdm-plugin/compare/1.1.8...1.1.9
