@@ -41,21 +41,21 @@ public class FastDirectoryMappingHandler extends AnAction {
       }
       ProjectLevelVcsManager manager = ProjectLevelVcsManager.getInstance(Objects.requireNonNull(project));
       List<VcsDirectoryMapping> amappings = manager.getDirectoryMappings();
-      Map<String, DirectoryMappingItem> activeMappings = amappings
-            .stream()
-            .map(this::toDMI)
-            .collect(Collectors.toMap(DirectoryMappingItem::path, item -> item));
+      Map<String, DirectoryMappingItem> activeMappings =
+            amappings.stream().map(this::toDMI).collect(Collectors.toMap(DirectoryMappingItem::path, item -> item));
       List<DirectoryMappingItem> items = VcsRootDetector.getInstance(project)
             .getOrDetect()
             .stream()
             .map(
                root -> activeMappings.getOrDefault(
                   root.getPath().getPath(),
-                  new DirectoryMappingItem(root.getPath().getPath(), root.getVcs() != null ? root.getVcs().getName() : "", false)))
-              .peek(am -> activeMappings.remove(am.path()))
+                  new DirectoryMappingItem(root.getPath().getPath(),
+                        root.getVcs() != null ? root.getVcs().getName() : "", false)))
+            .peek(am -> activeMappings.remove(am.path()))
             .collect(Collectors.toCollection(ArrayList::new));
       if (!activeMappings.isEmpty())
-          items.addAll(activeMappings.values());
+         items.addAll(activeMappings.values());
+      activeMappings.values().stream().filter(dmi -> dmi.vsc().equals(SVN)).forEach(items::add);
       items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled).reversed());
 
       IPopupChooserBuilder<DirectoryMappingItem> builder =
@@ -67,11 +67,11 @@ public class FastDirectoryMappingHandler extends AnAction {
             .setNamerForFiltering(DirectoryMappingItem::path)
             .setCancelCallback(() -> {
                manager.setDirectoryMappings(
-                  Stream.concat(items.stream()
-                                       .filter(DirectoryMappingItem::isEnabled)
-                                       .map(item -> new VcsDirectoryMapping(item.path(), item.vsc())),
-                                amappings.stream().filter(am -> SVN.equals(am.getVcs())))
-                        .toList());
+                  Stream.concat(
+                     items.stream()
+                           .filter(DirectoryMappingItem::isEnabled)
+                           .map(item -> new VcsDirectoryMapping(item.path(), item.vsc())),
+                     amappings.stream().filter(am -> SVN.equals(am.getVcs()))).toList());
                POPUPS.remove(project);
                return true;
             })
