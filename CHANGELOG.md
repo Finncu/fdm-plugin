@@ -4,9 +4,11 @@
 
 ## [Unreleased]
 
+## [1.2.2.1] - 2026-04-13
+
 ### Fixed
 
-- [#13] - won't forget the active and inactive directory mappings 
+- [#13] - won't forget the active and inactive directory mappings
 
 ## [1.2.1] - 2026-03-17
 
@@ -123,7 +125,7 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.2.1...HEAD
 [1.2.1]: https://github.com/Finncu/fdm-plugin/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/Finncu/fdm-plugin/compare/1.1.10...1.2.0
 [1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10
@@ -134,6 +136,7 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
+[1.2.2.1]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...1.2.2.1
 [//]: #
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
