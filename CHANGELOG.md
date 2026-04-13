@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- [#13] - won't forget the active and inactive directory mappings 
+
 ## [1.2.1] - 2026-03-17
 
 ### Removed
