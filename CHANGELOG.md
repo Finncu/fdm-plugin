@@ -136,7 +136,7 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
-[1.2.2.1]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...1.2.2.1
+[1.2.2]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...1.2.2.1
 [//]: #
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
