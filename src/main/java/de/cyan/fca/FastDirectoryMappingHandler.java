@@ -21,6 +21,7 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
+import de.cyan.fca.restore.ChangeListRestoreCoordinator;
 
 public class FastDirectoryMappingHandler extends AnAction {
 
@@ -58,23 +59,52 @@ public class FastDirectoryMappingHandler extends AnAction {
       activeMappings.values().stream().filter(dmi -> dmi.vsc().equals(SVN)).forEach(items::add);
       items.sort(Comparator.comparing(DirectoryMappingItem::isEnabled).reversed());
 
-      IPopupChooserBuilder<DirectoryMappingItem> builder =
-            JBPopupFactory.getInstance().createPopupChooserBuilder(items);
-      builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
-            .setCloseOnEnter(false)
-            .setCancelOnClickOutside(true)
-            .setFilterAlwaysVisible(true)
-            .setNamerForFiltering(DirectoryMappingItem::path)
-            .setCancelCallback(() -> {
-               manager.setDirectoryMappings(
-                  Stream.concat(
-                     items.stream()
-                           .filter(DirectoryMappingItem::isEnabled)
-                           .map(item -> new VcsDirectoryMapping(item.path(), item.vsc())),
-                     amappings.stream().filter(am -> SVN.equals(am.getVcs()))).toList());
-               POPUPS.remove(project);
-               return true;
-            })
+       IPopupChooserBuilder<DirectoryMappingItem> builder =
+             JBPopupFactory.getInstance().createPopupChooserBuilder(items);
+       builder.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+             .setCloseOnEnter(false)
+             .setCancelOnClickOutside(true)
+             .setFilterAlwaysVisible(true)
+             .setNamerForFiltering(DirectoryMappingItem::path)
+             .setCancelCallback(() -> {
+                // Restore-Koordinator für Changelist-Verwaltung
+                ChangeListRestoreCoordinator coordinator = new ChangeListRestoreCoordinator(project);
+
+                // Vergleiche alte vs neue Mappings: Finde deaktivierte Roots
+                List<VcsDirectoryMapping> newMappings =
+                   Stream.concat(
+                      items.stream()
+                            .filter(DirectoryMappingItem::isEnabled)
+                            .map(item -> new VcsDirectoryMapping(item.path(), item.vsc())),
+                      amappings.stream().filter(am -> SVN.equals(am.getVcs()))).toList();
+
+                // Capture: Finde Mappings die deaktiviert wurden und speichere Changes
+                for (VcsDirectoryMapping oldMapping : amappings) {
+                   boolean isStillActive = newMappings.stream()
+                       .anyMatch(nm -> nm.getDirectory().equals(oldMapping.getDirectory()));
+                   if (!isStillActive && !oldMapping.getVcs().isEmpty()) {
+                      // Dieses Mapping wird deaktiviert -> Capture durchführen
+                      coordinator.captureChangesForDeactivatedRoot(
+                          oldMapping.getDirectory(),
+                          oldMapping.getVcs());
+                   }
+                }
+
+                // Restore: Finde Mappings die reaktiviert wurden
+                for (VcsDirectoryMapping newMapping : newMappings) {
+                   boolean wasActive = amappings.stream()
+                       .anyMatch(am -> am.getDirectory().equals(newMapping.getDirectory()));
+                   if (!wasActive && !newMapping.getVcs().isEmpty()) {
+                      // Dieses Mapping wird aktiviert -> Restore durchführen
+                      coordinator.restoreChangesForReactivatedRoot(newMapping.getDirectory());
+                   }
+                }
+
+                // Persistiere neue Mappings
+                manager.setDirectoryMappings(newMappings);
+                POPUPS.remove(project);
+                return true;
+             })
             .setRenderer(SimpleListCellRenderer.create(RENDERER));
       builder.setItemsChosenCallback(is -> {
          is.forEach(DirectoryMappingItem::toggle);
