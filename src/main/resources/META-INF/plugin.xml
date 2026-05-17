@@ -24,7 +24,7 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="de.cyan.fca.restore.ChangeListRestoreStateService"/>
+        <projectService serviceImplementation="de.cyan.fca.restore.ChangeListManagementService"/>
     </extensions>
 
     <actions>
@@ -35,7 +35,7 @@
     </actions>
     <projectListeners>
         <listener
-            class="de.cyan.fca.restore.RestoreVcsChangeControllerService"
+            class="de.cyan.fca.restore.ChangeListRestoreListener"
             topic="com.intellij.openapi.vcs.changes.ChangeListListener"/>
     </projectListeners>
 </idea-plugin>

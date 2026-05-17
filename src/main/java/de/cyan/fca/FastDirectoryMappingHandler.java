@@ -21,6 +21,7 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
+import de.cyan.fca.restore.ChangeListManagementService;
 import de.cyan.fca.restore.RestoreVcsChangeControllerService;
 
 public class FastDirectoryMappingHandler extends AnAction {
@@ -36,7 +37,8 @@ public class FastDirectoryMappingHandler extends AnAction {
    @Override
    public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
       Project project = Objects.requireNonNull(anActionEvent.getProject());
-       RestoreVcsChangeControllerService controllerService = project.getService(RestoreVcsChangeControllerService.class);
+//       RestoreVcsChangeControllerService controllerService = project.getService(RestoreVcsChangeControllerService.class);
+       ChangeListManagementService controllerService = project.getService(ChangeListManagementService.class);
       if (POPUPS.containsKey(project)) {
          POPUPS.remove(project).dispose();
          return;
@@ -82,7 +84,7 @@ public class FastDirectoryMappingHandler extends AnAction {
                        .anyMatch(nm -> nm.getDirectory().equals(oldMapping.getDirectory()));
                    if (!isStillActive && !oldMapping.getVcs().isEmpty()) {
                       // Dieses Mapping wird deaktiviert -> Capture durchführen
-                       controllerService.storeChanges(oldMapping);
+                       controllerService.computeChangesForRemoval(oldMapping);
                    }
                 }
 
