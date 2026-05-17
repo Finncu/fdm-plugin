@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Added
+
+ - support of changelists
+   - changes would be redirected to their changelists on enable mapping
+   - changelist per change would be saved on disable mapping
+
 ## [1.2.2] - 2026-04-13
 
 ### Fixed
