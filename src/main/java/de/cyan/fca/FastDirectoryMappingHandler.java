@@ -21,7 +21,7 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
-import de.cyan.fca.restore.ChangeListRestoreCoordinator;
+import de.cyan.fca.restore.RestoreVcsChangeControllerService;
 
 public class FastDirectoryMappingHandler extends AnAction {
 
@@ -35,7 +35,8 @@ public class FastDirectoryMappingHandler extends AnAction {
 
    @Override
    public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-      Project project = anActionEvent.getProject();
+      Project project = Objects.requireNonNull(anActionEvent.getProject());
+       RestoreVcsChangeControllerService controllerService = project.getService(RestoreVcsChangeControllerService.class);
       if (POPUPS.containsKey(project)) {
          POPUPS.remove(project).dispose();
          return;
@@ -67,9 +68,6 @@ public class FastDirectoryMappingHandler extends AnAction {
              .setFilterAlwaysVisible(true)
              .setNamerForFiltering(DirectoryMappingItem::path)
              .setCancelCallback(() -> {
-                // Restore-Koordinator für Changelist-Verwaltung
-                ChangeListRestoreCoordinator coordinator = new ChangeListRestoreCoordinator(project);
-
                 // Vergleiche alte vs neue Mappings: Finde deaktivierte Roots
                 List<VcsDirectoryMapping> newMappings =
                    Stream.concat(
@@ -83,24 +81,11 @@ public class FastDirectoryMappingHandler extends AnAction {
                    boolean isStillActive = newMappings.stream()
                        .anyMatch(nm -> nm.getDirectory().equals(oldMapping.getDirectory()));
                    if (!isStillActive && !oldMapping.getVcs().isEmpty()) {
-                      // Dieses Mapping wird deaktiviert -> Capture durchführen
-                      coordinator.captureChangesForDeactivatedRoot(
-                          oldMapping.getDirectory(),
-                          oldMapping.getVcs());
+                      // Dieses Mapping wird deaktiviert -> Capture durchfÃ¼hren
+                       controllerService.storeChanges(oldMapping);
                    }
                 }
 
-                // Restore: Finde Mappings die reaktiviert wurden
-                for (VcsDirectoryMapping newMapping : newMappings) {
-                   boolean wasActive = amappings.stream()
-                       .anyMatch(am -> am.getDirectory().equals(newMapping.getDirectory()));
-                   if (!wasActive && !newMapping.getVcs().isEmpty()) {
-                      // Dieses Mapping wird aktiviert -> Restore durchführen
-                      coordinator.restoreChangesForReactivatedRoot(newMapping.getDirectory());
-                   }
-                }
-
-                // Persistiere neue Mappings
                 manager.setDirectoryMappings(newMappings);
                 POPUPS.remove(project);
                 return true;

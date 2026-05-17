@@ -33,4 +33,9 @@
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
         </action>
     </actions>
+    <projectListeners>
+        <listener
+            class="de.cyan.fca.restore.RestoreVcsChangeControllerService"
+            topic="com.intellij.openapi.vcs.changes.ChangeListListener"/>
+    </projectListeners>
 </idea-plugin>
