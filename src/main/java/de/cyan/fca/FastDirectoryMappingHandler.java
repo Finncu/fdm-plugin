@@ -22,7 +22,6 @@ import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.roots.VcsRootDetector;
 import com.intellij.ui.SimpleListCellRenderer;
 import de.cyan.fca.restore.ChangeListManagementService;
-import de.cyan.fca.restore.RestoreVcsChangeControllerService;
 
 public class FastDirectoryMappingHandler extends AnAction {
 

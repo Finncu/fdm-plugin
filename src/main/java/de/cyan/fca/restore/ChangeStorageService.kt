@@ -25,7 +25,7 @@ class ChangeStorageService : PersistentStateComponent<ChangeStorageService> {
         XmlSerializerUtil.copyBean<ChangeStorageService?>(state, this)
     }
 
-    public fun getStorage() : HashMap<Int, String> {
+    fun getStorage() : HashMap<Int, String> {
         return storage
     }
 }

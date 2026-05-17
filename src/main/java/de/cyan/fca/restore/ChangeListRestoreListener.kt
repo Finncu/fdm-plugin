@@ -9,8 +9,7 @@ import com.intellij.openapi.vcs.changes.ChangeListListener
 class ChangeListRestoreListener(private val project: Project) : ChangeListListener {
     private val clmService by lazy { project.service<ChangeListManagementService>() }
 
-    override fun changesAdded(changes: Collection<Change?>?, toList: ChangeList?) {
+    override fun changesAdded(changes: Collection<Change>, toList: ChangeList?) {
         clmService.computeChanges(changes)
-        super.changesAdded(changes, toList)
     }
 }
