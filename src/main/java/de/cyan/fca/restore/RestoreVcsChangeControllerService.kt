@@ -16,7 +16,6 @@ import com.intellij.openapi.vcs.changes.ChangeListManager
 import com.intellij.openapi.vcs.changes.LocalChangeList
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.XCollection
-import org.jetbrains.annotations.NotNull
 
 @Service(Service.Level.PROJECT)
 @State(name = "FDMRestoreStorage", storages = [Storage("fdmRestore.json")])
@@ -32,7 +31,7 @@ class RestoreVcsChangeControllerService(private val project: Project) : ChangeLi
         return this
     }
 
-    override fun loadState(p0: RestoreVcsChangeControllerService) {
+    override fun loadState(p0: RestoreVcsChangeControllerService) {// flashcast - loading überarbeiten!!!
         XmlSerializerUtil.copyBean<RestoreVcsChangeControllerService?>(state, this)
     }
 
