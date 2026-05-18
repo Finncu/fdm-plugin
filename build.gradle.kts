@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
     alias(libs.plugins.qodana) // Gradle Qodana Plugin
     alias(libs.plugins.kover) // Gradle Kover Plugin
+    `maven-publish` // Maven Publishing for GitHub Packages
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -129,6 +130,33 @@ kover {
     }
 }
 
+// Configure Maven Publishing for GitHub Packages
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Finncu/fdm-plugin")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            groupId = providers.gradleProperty("pluginGroup").get()
+            artifactId = "fdm-plugin"
+            version = providers.gradleProperty("pluginVersion").get()
+            
+            // Attach the built plugin ZIP as artifact
+            artifact(tasks.buildPlugin.get().archiveFile) {
+                classifier = "plugin"
+                extension = "zip"
+            }
+        }
+    }
+}
+
 tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
@@ -137,6 +165,10 @@ tasks {
     publishPlugin {
         token = publishToken
         dependsOn(patchChangelog)
+    }
+
+    publish {
+        dependsOn(buildPlugin)
     }
 }
 
