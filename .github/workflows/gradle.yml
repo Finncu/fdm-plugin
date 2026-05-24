@@ -35,6 +35,6 @@ jobs:
 
     - name: Publish Snapshot to GitHub Packages
       run: |
-        ./gradlew publish -Pversion=MAIN-SNAPSHOT
+        ./gradlew publish -Pversion=MAIN-SNAPSHOT-$TIMESTAMP
       env:
         GITHUB_TOKEN: ${{ github.token }}
