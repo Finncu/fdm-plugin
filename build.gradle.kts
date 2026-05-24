@@ -59,6 +59,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
+        id = name
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         description = providers.fileContents(layout.projectDirectory.file("src/main/resources/META-INF/plugin.xml")).asText.map {
             val start = "<description>"
@@ -146,7 +147,7 @@ publishing {
         register<MavenPublication>("gpr") {
             groupId = providers.gradleProperty("pluginGroup").get()
             artifactId = "fdm-plugin"
-            version = providers.gradleProperty("pluginVersion").get()
+            version = project.version.toString()
             
             // Attach the built plugin ZIP as artifact
             artifact(tasks.buildPlugin.get().archiveFile) {
