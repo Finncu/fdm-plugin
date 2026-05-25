@@ -4,9 +4,11 @@
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-05-25
+
 ### Added
 
- - support of changelists
+- support of changelists
    - changes would be redirected to their changelists on enable mapping
    - changelist per change would be saved on disable mapping
 
@@ -131,7 +133,9 @@
 - reviewed name issue
 - reviewed missing icon
 
-[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.2.1...HEAD
+[Unreleased]: https://github.com/Finncu/fdm-plugin/compare/1.2.3...HEAD
+[1.2.3]: https://github.com/Finncu/fdm-plugin/compare/1.2.2...1.2.3
+[1.2.2]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/Finncu/fdm-plugin/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/Finncu/fdm-plugin/compare/1.1.10...1.2.0
 [1.1.10]: https://github.com/Finncu/fdm-plugin/compare/1.1.9...1.1.10
@@ -142,7 +146,6 @@
 [1.1.6]: https://github.com/Finncu/fdm-plugin/compare/1.1.5...1.1.6
 [1.1.5]: https://github.com/Finncu/fdm-plugin/compare/1.1.4...1.1.5
 [1.1.4]: https://github.com/Finncu/fdm-plugin/commits/1.1.4
-[1.2.2]: https://github.com/Finncu/fdm-plugin/compare/1.2.1...1.2.2.1
 [//]: #
 [#9]: https://github.com/Finncu/fdm-plugin/issues/9
 [#8]: https://github.com/Finncu/fdm-plugin/issues/8
