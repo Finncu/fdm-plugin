@@ -59,7 +59,6 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
-        id = name
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         description = providers.fileContents(layout.projectDirectory.file("src/main/resources/META-INF/plugin.xml")).asText.map {
             val start = "<description>"
