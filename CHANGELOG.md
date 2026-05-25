@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- intellij ide version range
+
 ## [1.2.3] - 2026-05-17
 
 ### Added
